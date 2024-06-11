@@ -8,6 +8,7 @@ local gridLayout = Instance.new("UIGridLayout")
 local btnWalkSpeed = Instance.new("TextButton")
 local getCoordinated = Instance.new("TextButton")
 local getCoordinatedLabel = Instance.new("TextLabel")
+local btnTeleport = Instance.new("TextButton")
 
 --Button Configs
 local size = UDim2.new(0.25,0,0.10,0)
@@ -69,6 +70,14 @@ getCoordinatedLabel.AnchorPoint = Vector2.new(0.5,1)
 getCoordinatedLabel.Position = UDim2.new(0.5,0,1,0)
 getCoordinatedLabel.Size = UDim2.new(1,0,0.1,0)
 
+
+--TELEPORT
+btnTeleport.Size = size
+btnTeleport.TextColor3 = textColor
+btnTeleport.BackgroundColor = backgroundColor
+btnTeleport.Text = "TP"
+
+
 --UIGRIDLAYOUT
 gridLayout.CellPadding = UDim2.new(0.02,0,0.02,0)
 gridLayout.CellSize = UDim2.new(0.2,0,0.10,0)
@@ -83,6 +92,16 @@ mainGui.Parent = player.PlayerGui
 textLabel.Parent = frame
 getCoordinated.Parent = scrollGui
 getCoordinatedLabel.Parent = frame
+btnTeleport.Parent = scrollGui
+
+--Ferramentas
+local function extrairNumeros(texto)
+	local numeros = {}
+	for numero in texto:gmatch("%-?%d+") do
+		table.insert(numeros, tonumber(numero))
+	end
+	return unpack(numeros)
+end
 
 --Scripts
 
@@ -115,5 +134,18 @@ end)
 
 --SCRIPT GET CORD
 getCoordinated.Activated:Connect(function ()
-	getCoordinatedLabel.Text = "X: "..math.floor(player.Character.HumanoidRootPart.Position.X)..", Y: "..math.floor(player.Character.HumanoidRootPart.Position.Y)..", Z: "..math.floor(player.Character.HumanoidRootPart.Position.Z)
+	local X = math.floor(player.Character.HumanoidRootPart.Position.X)
+	local Y = math.floor(player.Character.HumanoidRootPart.Position.Y)
+	local Z = math.floor(player.Character.HumanoidRootPart.Position.Z)
+	getCoordinatedLabel.Text = " X: ".. X .. " Y: ".. Y .. " Z: ".. Z
 end)
+
+
+--SCRIPT TP
+btnTeleport.Activated:Connect(function ()
+	local cord = getCoordinatedLabel.Text
+	local x, y, z = extrairNumeros(cord)
+	print(x,y,z)
+	player.Character.HumanoidRootPart.CFrame = CFrame.new(x, y, z)
+end)
+
