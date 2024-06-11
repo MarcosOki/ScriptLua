@@ -5,10 +5,79 @@ local textLabel = Instance.new("TextLabel")
 local buttomShowMenu = Instance.new("TextButton")
 local scrollGui = Instance.new("ScrollingFrame")
 local gridLayout = Instance.new("UIGridLayout")
-local btnWalkSpeed = Instance.new("TextButton")
-local getCoordinated = Instance.new("TextButton")
 local getCoordinatedLabel = Instance.new("TextLabel")
 local btnTeleport = Instance.new("TextButton")
+mainGui.ResetOnSpawn = false
+
+
+
+--Ferramentas
+local function extrairNumeros(texto)
+	local numeros = {}
+	for numero in texto:gmatch("%-?%d+") do
+		table.insert(numeros, tonumber(numero))
+	end
+	return unpack(numeros)
+end
+
+local function createButton(nome,size,textButton,background,textSize,textColor,parent,activate)
+	local btn = Instance.new("TextButton")
+	btn.Name = nome
+	btn.Size = size
+	btn.Text = textButton
+	btn.BackgroundColor = background
+	btn.TextSize = textSize
+	btn.TextColor3 = textColor
+	btn.Parent = parent
+	btn.Activated:Connect(activate)
+	return btn
+end
+
+
+--Scripts
+
+buttomShowMenu.MouseButton1Click:Connect(function ()
+	if buttomShowMenu.Text == "Close"  then
+		print("close")
+		frame.Visible = false
+		buttomShowMenu.Text = "Open"
+	else
+		print("open")
+		frame.Visible = true
+		buttomShowMenu.Text = "Close"
+	end
+end)
+
+
+--Script WalkSpeed
+
+local function walkspeed(btnWalkSpeed)
+	if player.Character.Humanoid.WalkSpeed == 16  then
+		player.Character.Humanoid.WalkSpeed = 50
+	else
+		player.Character.Humanoid.WalkSpeed = 16
+	end
+
+end
+
+
+--SCRIPT GET CORD
+local function getCord(getCordinateLabel)
+	local X = math.floor(player.Character.HumanoidRootPart.Position.X)
+	local Y = math.floor(player.Character.HumanoidRootPart.Position.Y)
+	local Z = math.floor(player.Character.HumanoidRootPart.Position.Z)
+	getCoordinatedLabel.Text = " X: ".. X .. " Y: ".. Y .. " Z: ".. Z
+end
+
+
+--SCRIPT TP
+local function teleport ()
+	local cord = getCoordinatedLabel.Text
+	local x, y, z = extrairNumeros(cord)
+	print(x,y,z)
+	player.Character.HumanoidRootPart.CFrame = CFrame.new(x, y, z)
+end
+
 
 --Button Configs
 local size = UDim2.new(0.25,0,0.10,0)
@@ -37,7 +106,7 @@ textLabel.BorderColor3 = Color3.new(0,0,0)
 buttomShowMenu.Text = "Close"
 buttomShowMenu.BorderColor3 = Color3.new(0,0,0)
 buttomShowMenu.AnchorPoint = Vector2.new(0.5,0.5)
-buttomShowMenu.Position = UDim2.new(0.5,0,-0.1,0)
+buttomShowMenu.Position = UDim2.new(0.5,0,-0.05,0)
 buttomShowMenu.TextColor3 = Color3.new(0,255,0)
 buttomShowMenu.TextSize = 13
 buttomShowMenu.AutoButtonColor = Color3.new(0,0,0)
@@ -50,19 +119,13 @@ scrollGui.Transparency = 1
 
 
 --BOTAO WALKSPEED
-btnWalkSpeed.Text = "Speed"
-btnWalkSpeed.Size = size
-btnWalkSpeed.BackgroundColor = backgroundColor
-btnWalkSpeed.TextColor3 = textColor
-btnWalkSpeed.Name = "WalkSpeed"
-btnWalkSpeed.TextSize = textSize
+local btnWalkSpeed = createButton("WalkSpeed",size,"Speed",backgroundColor,textSize,textColor,scrollGui,walkspeed)
+
 
 --BOTAO GET CORD
-getCoordinated.Text = "GetCord"
-getCoordinated.Size = size
-getCoordinated.BackgroundColor = backgroundColor
-getCoordinated.TextSize = textSize
-getCoordinated.TextColor3 = textColor
+local btnGetCord = createButton("GetCord",size,"GetCord",backgroundColor,textSize,textColor,scrollGui,getCord)
+
+
 --Label getcord
 getCoordinatedLabel.TextColor3 = textColor
 getCoordinatedLabel.Text = ""
@@ -72,10 +135,8 @@ getCoordinatedLabel.Size = UDim2.new(1,0,0.1,0)
 
 
 --TELEPORT
-btnTeleport.Size = size
-btnTeleport.TextColor3 = textColor
-btnTeleport.BackgroundColor = backgroundColor
-btnTeleport.Text = "TP"
+local btnTeleport = createButton("Teleport",size,"Teleport",backgroundColor,textSize,textColor,scrollGui,teleport)
+
 
 
 --UIGRIDLAYOUT
@@ -84,68 +145,20 @@ gridLayout.CellSize = UDim2.new(0.2,0,0.10,0)
 
 --PARENT
 gridLayout.Parent = scrollGui
-btnWalkSpeed.Parent = scrollGui
 scrollGui.Parent = frame
 buttomShowMenu.Parent = mainGui
 frame.Parent = mainGui
 mainGui.Parent = player.PlayerGui
 textLabel.Parent = frame
-getCoordinated.Parent = scrollGui
 getCoordinatedLabel.Parent = frame
-btnTeleport.Parent = scrollGui
-
---Ferramentas
-local function extrairNumeros(texto)
-	local numeros = {}
-	for numero in texto:gmatch("%-?%d+") do
-		table.insert(numeros, tonumber(numero))
-	end
-	return unpack(numeros)
-end
-
---Scripts
-
-buttomShowMenu.MouseButton1Click:Connect(function ()
-	if buttomShowMenu.Text == "Close"  then
-		print("close")
-		frame.Visible = false
-		buttomShowMenu.Text = "Open"
-	else
-		print("open")
-		frame.Visible = true
-		buttomShowMenu.Text = "Close"
-	end
-end)
 
 
---Script WalkSpeed
-
-btnWalkSpeed.Activated:Connect(function ()
-	if player.Character.Humanoid.WalkSpeed == 16  then
-		player.Character.Humanoid.WalkSpeed = 50
-		btnWalkSpeed.BackgroundColor3 = Color3.new(0,0,255)
-	else
-		player.Character.Humanoid.WalkSpeed = 16
-		btnWalkSpeed.BackgroundColor = BrickColor.new("Mid gray")
-	end
-
-end)
 
 
---SCRIPT GET CORD
-getCoordinated.Activated:Connect(function ()
-	local X = math.floor(player.Character.HumanoidRootPart.Position.X)
-	local Y = math.floor(player.Character.HumanoidRootPart.Position.Y)
-	local Z = math.floor(player.Character.HumanoidRootPart.Position.Z)
-	getCoordinatedLabel.Text = " X: ".. X .. " Y: ".. Y .. " Z: ".. Z
-end)
 
 
---SCRIPT TP
-btnTeleport.Activated:Connect(function ()
-	local cord = getCoordinatedLabel.Text
-	local x, y, z = extrairNumeros(cord)
-	print(x,y,z)
-	player.Character.HumanoidRootPart.CFrame = CFrame.new(x, y, z)
-end)
+--snow cord -1400 15 2388
+
+
+
 
