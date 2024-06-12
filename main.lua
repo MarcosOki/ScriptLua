@@ -79,6 +79,15 @@ local function teleport ()
 end
 
 
+--SCRIPT Snow Farm
+local function snowFarm ()
+	local status = true
+	player.Character.HumanoidRootPart.CFrame = CFrame.new(-1400, 15 ,2388)
+	print("tp funcionou")
+	player.Character.HumanoidRootPart.Anchored = true
+end
+
+
 --Button Configs
 local size = UDim2.new(0.25,0,0.10,0)
 local backgroundColor = BrickColor.new("Lily white")
@@ -125,6 +134,8 @@ local btnWalkSpeed = createButton("WalkSpeed",size,"Speed",backgroundColor,textS
 --BOTAO GET CORD
 local btnGetCord = createButton("GetCord",size,"GetCord",backgroundColor,textSize,textColor,scrollGui,getCord)
 
+--BOTAO SNOW FARM
+local btnSnowFarm = createButton("snowFarm", size,"snowFarm",backgroundColor,textSize,textColor,scrollGui,snowFarm)
 
 --Label getcord
 getCoordinatedLabel.TextColor3 = textColor
@@ -151,14 +162,3 @@ frame.Parent = mainGui
 mainGui.Parent = player.PlayerGui
 textLabel.Parent = frame
 getCoordinatedLabel.Parent = frame
-
-
-
-
-
-
---snow cord -1400 15 2388
-
-
-
-
