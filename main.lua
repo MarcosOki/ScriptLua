@@ -7,7 +7,7 @@ local scrollGui = Instance.new("ScrollingFrame")
 local gridLayout = Instance.new("UIGridLayout")
 local getCoordinatedLabel = Instance.new("TextLabel")
 local btnTeleport = Instance.new("TextButton")
-mainGui.ResetOnSpawn = false
+mainGui.ResetOnSpawn = true
 
 
 
@@ -82,26 +82,32 @@ end
 --SCRIPT Snow Farm
 local function snowFarm ()
 	local status = true
-	player.Character.HumanoidRootPart.CFrame = CFrame.new(-1400, 15 ,2388)
-	local args = {
-		[1] = "DF_SnowSnow_V",
-		[2] = {
-			["Type"] = "Down",
-			["MouseHit"] = CFrame.new(-1123.123779296875, -287.5234680175781, 2309.5244140625) * CFrame.Angles(-1.3162145614624023, -0.7221925854682922, -1.1957588195800781)
-		}
-	}
+    while (1==1) do
+        if(player.Character.HumanoidRootPart.Position.X == -1405 and player.Character.HumanoidRootPart.Position.Y == 36 and player.Character.HumanoidRootPart.Position.Z == 2405) then
+            print("cord certa")
+        else
+            player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
+        end
+        print("começando")
+        local args = {
+        [1] = "DF_SnowSnow_V",
+        [2] = {
+            ["Type"] = "Down",
+            ["MouseHit"] = CFrame.new(-1123.123779296875, -287.5234680175781, 2309.5244140625) * CFrame.Angles(-1.3162145614624023, -0.7221925854682922, -1.1957588195800781)
+            }
+        }
 
-	game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
-	local args = {
-		[1] = "DF_SnowSnow_V",
-		[2] = {
-			["Type"] = "Up",
-			["MouseHit"] = CFrame.new(-1123.118408203125, -287.5235290527344, 2309.546875) * CFrame.Angles(-1.3162145614624023, -0.7221925854682922, -1.1957588195800781)
-		}
-	}
-
-	game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
-	print("tp funcionou")
+        game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
+        wait(1)
+        local args = {
+            [1] = "DF_SnowSnow_V",
+            [2] = {
+                ["Type"] = "Up",
+                ["MouseHit"] = CFrame.new(player.Character.HumanoidRootPart.Position.X, player.Character.HumanoidRootPart.Position.Y,player.Character.HumanoidRootPart.Position.Z) * CFrame.Angles(0, 0, 0)
+            }
+        }
+	    game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
+    end
 end
 
 
