@@ -7,8 +7,8 @@ local scrollGui = Instance.new("ScrollingFrame")
 local gridLayout = Instance.new("UIGridLayout")
 local getCoordinatedLabel = Instance.new("TextLabel")
 local btnTeleport = Instance.new("TextButton")
-mainGui.ResetOnSpawn = true
-
+mainGui.ResetOnSpawn = false
+local status = true
 
 
 --Ferramentas
@@ -80,15 +80,14 @@ end
 
 
 --SCRIPT Snow Farm
-local function snowFarm ()
-	local status = true
-    while (1==1) do
+local function snowFarm (ligada)
+    while (ligada) do
+            
         if(player.Character.HumanoidRootPart.Position.X == -1405 and player.Character.HumanoidRootPart.Position.Y == 36 and player.Character.HumanoidRootPart.Position.Z == 2405) then
-            print("cord certa")
+                print("cord certa")
         else
-            player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
+                player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
         end
-        print("começando")
         local args = {
         [1] = "DF_SnowSnow_V",
         [2] = {
@@ -106,8 +105,9 @@ local function snowFarm ()
                 ["MouseHit"] = CFrame.new(player.Character.HumanoidRootPart.Position.X, player.Character.HumanoidRootPart.Position.Y,player.Character.HumanoidRootPart.Position.Z) * CFrame.Angles(0, 0, 0)
             }
         }
-	    game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
-    end
+        game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
+    end  
+    
 end
 
 
@@ -158,7 +158,9 @@ local btnWalkSpeed = createButton("WalkSpeed",size,"Speed",backgroundColor,textS
 local btnGetCord = createButton("GetCord",size,"GetCord",backgroundColor,textSize,textColor,scrollGui,getCord)
 
 --BOTAO SNOW FARM
-local btnSnowFarm = createButton("snowFarm", size,"snowFarm",backgroundColor,textSize,textColor,scrollGui,snowFarm)
+local btnSnowFarm = createButton("snowFarm", size,"snowFarm",backgroundColor,textSize,textColor,scrollGui,function()
+    snowFarm(status)
+end)
 
 --Label getcord
 getCoordinatedLabel.TextColor3 = textColor
@@ -185,13 +187,3 @@ frame.Parent = mainGui
 mainGui.Parent = player.PlayerGui
 textLabel.Parent = frame
 getCoordinatedLabel.Parent = frame
-
-
-
-
-
-
-
-
-
-
