@@ -51,15 +51,12 @@ buttomShowMenu.MouseButton1Click:Connect(function ()
 end)
 
 --Script AntKick/AntiAfk
-while (1==1) do
-	local vUSer = game:service'VirtualUser'
-	player.idled:Connect(function ()
-		vUSer:CaptureController()
-		vUSer:ClickButton2(Vector2.new())
-		print("funcionou")
-	end)
-	wait(30)
-end
+
+local virtualUser = game:GetService("VirtualUser")
+player.Idled:Connect(function (idledTime)
+	virtualUser:CaptureController()
+	virtualUser:ClickButton(Vector2.new())
+end)
 
 
 --Script WalkSpeed
@@ -94,33 +91,33 @@ end
 
 --SCRIPT Snow Farm
 local function snowFarm (ligada)
-    while (ligada) do
-            
-        if(player.Character.HumanoidRootPart.Position.X == -1405 and player.Character.HumanoidRootPart.Position.Y == 36 and player.Character.HumanoidRootPart.Position.Z == 2405) then
-                print("cord certa")
-        else
-                player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
-        end
-        local args = {
-        [1] = "DF_SnowSnow_V",
-        [2] = {
-            ["Type"] = "Down",
-            ["MouseHit"] = CFrame.new(-1123.123779296875, -287.5234680175781, 2309.5244140625) * CFrame.Angles(-1.3162145614624023, -0.7221925854682922, -1.1957588195800781)
-            }
-        }
+	while (ligada) do
 
-        game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
-        wait(1)
-        local args = {
-            [1] = "DF_SnowSnow_V",
-            [2] = {
-                ["Type"] = "Up",
-                ["MouseHit"] = CFrame.new(player.Character.HumanoidRootPart.Position.X, player.Character.HumanoidRootPart.Position.Y,player.Character.HumanoidRootPart.Position.Z) * CFrame.Angles(0, 0, 0)
-            }
-        }
-        game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
-    end  
-    
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
+
+		local args = {
+			[1] = "DF_SnowSnow_V",
+			[2] = {
+				["Type"] = "Down",
+				["MouseHit"] = CFrame.new(-1123.123779296875, -287.5234680175781, 2309.5244140625) * CFrame.Angles(-1.3162145614624023, -0.7221925854682922, -1.1957588195800781)
+			}
+		}
+
+		game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
+		wait(1)
+		local args = {
+			[1] = "DF_SnowSnow_V",
+			[2] = {
+				["Type"] = "Up",
+				["MouseHit"] = CFrame.new(player.Character.HumanoidRootPart.Position.X, player.Character.HumanoidRootPart.Position.Y,player.Character.HumanoidRootPart.Position.Z) * CFrame.Angles(0, 0, 0)
+			}
+		}
+		game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
+
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
+
+	end  
+
 end
 
 
@@ -172,7 +169,7 @@ local btnGetCord = createButton("GetCord",size,"GetCord",backgroundColor,textSiz
 
 --BOTAO SNOW FARM
 local btnSnowFarm = createButton("snowFarm", size,"snowFarm",backgroundColor,textSize,textColor,scrollGui,function()
-    snowFarm(status)
+	snowFarm(status)
 end)
 
 --Label getcord
