@@ -131,7 +131,7 @@ local function snowFarm (ligada)
 		game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
 
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1257, 111 ,2354)
-		wait(14)
+		wait(1)
 	end  
 
 end
