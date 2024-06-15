@@ -70,6 +70,18 @@ buttomShowMenu.MouseButton1Click:Connect(function ()
 		buttomShowMenu.Text = "Close"
 	end
 end)
+buttomShowMenu.TouchTap:Connect(function ()
+	if buttomShowMenu.Text == "Close"  then
+		print("close")
+		frame.Visible = false
+		buttomShowMenu.Text = "Open"
+	else
+		print("open")
+		frame.Visible = true
+		buttomShowMenu.Text = "Close"
+	end
+end)
+
 
 
 
