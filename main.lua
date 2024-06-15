@@ -8,7 +8,7 @@ local gridLayout = Instance.new("UIGridLayout")
 local getCoordinatedLabel = Instance.new("TextLabel")
 local btnTeleport = Instance.new("TextButton")
 mainGui.ResetOnSpawn = false
-local status = true
+local statusFarm = true
 
 
 wait(0.5)local ba=Instance.new("ScreenGui")
@@ -22,7 +22,7 @@ ca.TextSize=22;da.Parent=ca
 da.BackgroundColor3=Color3.new(0.196078,0.196078,0.196078)da.Position=UDim2.new(0,0,1.0192306,0)
 da.Size=UDim2.new(0,370,0,107)_b.Parent=da
 _b.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)_b.Position=UDim2.new(0,0,0.800455689,0)
-_b.Size=UDim2.new(0,370,0,21)_b.Font=Enum.Font.Arial;_b.Text="Made by luca#5432"
+_b.Size=UDim2.new(0,370,0,21)_b.Font=Enum.Font.Arial;_b.Text=""
 _b.TextColor3=Color3.new(0,1,1)_b.TextSize=20;ab.Parent=da
 ab.BackgroundColor3=Color3.new(0.176471,0.176471,0.176471)ab.Position=UDim2.new(0,0,0.158377,0)
 ab.Size=UDim2.new(0,370,0,44)ab.Font=Enum.Font.ArialBold;ab.Text="Status: Active"
@@ -71,7 +71,6 @@ buttomShowMenu.MouseButton1Click:Connect(function ()
 	end
 end)
 
---Script AntKick/AntiAfk
 
 
 
@@ -87,6 +86,11 @@ local function walkspeed(btnWalkSpeed)
 
 end
 
+--Script StopFarm
+local function stopFarm()
+    statusFarm = false
+    print("era pra farm pausar")
+end
 
 --SCRIPT GET CORD
 local function getCord(getCordinateLabel)
@@ -107,11 +111,40 @@ end
 
 
 --SCRIPT Snow Farm
-local function snowFarm (ligada)
-	while (ligada) do
-
+local function snowFarm ()
+    statusFarm = true
+	while statusFarm do
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
+		local args = {
+			[1] = "DF_SnowSnow_V",
+			[2] = {
+				["Type"] = "Down",
+				["MouseHit"] = CFrame.new(-1123.123779296875, -287.5234680175781, 2309.5244140625) * CFrame.Angles(-1.3162145614624023, -0.7221925854682922, -1.1957588195800781)
+			}
+		}
+		game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
+		local args = {
+			[1] = "DF_SnowSnow_V",
+			[2] = {
+				["Type"] = "Up",
+				["MouseHit"] = CFrame.new(player.Character.HumanoidRootPart.Position.X, player.Character.HumanoidRootPart.Position.Y,player.Character.HumanoidRootPart.Position.Z) * CFrame.Angles(0, 0, 0)
+			}
+		}
+		game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
 
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1257, 111 ,2354)
+		wait(1)
+	end  
+    print("Farm pausada")
+
+end
+
+--SCRIPT FARM Freshfish SNOW
+
+local function fishFarm ()
+    statusFarm = true
+	while statusFarm do
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(-713, 24 ,-1508)
 		local args = {
 			[1] = "DF_SnowSnow_V",
 			[2] = {
@@ -130,7 +163,7 @@ local function snowFarm (ligada)
 		}
 		game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
 
-		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1257, 111 ,2354)
+		player.Character.HumanoidRootPart.CFrame = CFrame.new(-720, 24 ,-1515)
 		wait(1)
 	end  
 
@@ -185,8 +218,16 @@ local btnGetCord = createButton("GetCord",size,"GetCord",backgroundColor,textSiz
 
 --BOTAO SNOW FARM
 local btnSnowFarm = createButton("snowFarm", size,"snowFarm",backgroundColor,textSize,textColor,scrollGui,function()
-	snowFarm(status)
+	snowFarm()
 end)
+
+--BTN FRESHFISH
+local btnFreshFish = createButton("FishFarm", size,"FishFarm",backgroundColor,textSize,textColor,scrollGui,function()
+    fishFarm()
+end)
+
+--BTN Stop Farm
+local btnStopTheFarm = createButton("StopFarm", size,"StopFarm",backgroundColor,textSize,textColor,scrollGui,stopFarm)
 
 --Label getcord
 getCoordinatedLabel.TextColor3 = textColor
@@ -213,5 +254,3 @@ frame.Parent = mainGui
 mainGui.Parent = player.PlayerGui
 textLabel.Parent = frame
 getCoordinatedLabel.Parent = frame
-
-
