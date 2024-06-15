@@ -82,8 +82,7 @@ buttomShowMenu.TouchTap:Connect(function ()
 	end
 end)
 
-
-local function V_snow ()
+local function v_snow ()
 	local args = {
 		[1] = "DF_SnowSnow_V",
 		[2] = {
@@ -100,9 +99,8 @@ local function V_snow ()
 			["MouseHit"] = CFrame.new(player.Character.HumanoidRootPart.Position.X, player.Character.HumanoidRootPart.Position.Y,player.Character.HumanoidRootPart.Position.Z) * CFrame.Angles(0, 0, 0)
 		}
 	}
+	game:GetService("ReplicatedStorage").Chest.Remotes.Functions.SkillAction:InvokeServer(unpack(args))
 end
-
-
 
 
 --Script WalkSpeed
@@ -145,7 +143,7 @@ local function snowFarm ()
     statusFarm = true
 	while statusFarm do
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1405, 36 ,2405)
-		V_snow()
+		v_snow()
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(-1257, 111 ,2354)
 		wait(1)
 	end  
@@ -159,7 +157,7 @@ local function fishFarm ()
     statusFarm = true
 	while statusFarm do
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(-713, 24 ,-1508)
-		V_snow()
+		v_snow()
 		player.Character.HumanoidRootPart.CFrame = CFrame.new(-720, 24 ,-1515)
 		wait(1)
 	end  
