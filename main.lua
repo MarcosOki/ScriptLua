@@ -41,12 +41,17 @@ local function extrairNumeros(texto)
 	return unpack(numeros)
 end
 
-local function createButton(nome,size,textButton,background,textSize,textColor,parent,activate)
+local size = UDim2.new(0.25,0,0.10,0)
+local backgroundColor = BrickColor.new("Lily white")
+local textColor = Color3.new(0,0,0)
+local textSize = 10
+
+local function createButton(nome,textButton,parent,activate)
 	local btn = Instance.new("TextButton")
 	btn.Name = nome
 	btn.Size = size
 	btn.Text = textButton
-	btn.BackgroundColor = background
+	btn.BackgroundColor = backgroundColor
 	btn.TextSize = textSize
 	btn.TextColor3 = textColor
 	btn.Parent = parent
@@ -81,6 +86,7 @@ buttomShowMenu.TouchTap:Connect(function ()
 		buttomShowMenu.Text = "Close"
 	end
 end)
+
 
 local function v_snow ()
 	local args = {
@@ -117,7 +123,6 @@ end
 --Script StopFarm
 local function stopFarm()
     statusFarm = false
-    print("era pra farm pausar")
 end
 
 --SCRIPT GET CORD
@@ -166,10 +171,7 @@ end
 
 
 --Button Configs
-local size = UDim2.new(0.25,0,0.10,0)
-local backgroundColor = BrickColor.new("Lily white")
-local textColor = Color3.new(0,0,0)
-local textSize = 10
+
 
 --FRAME
 frame.AnchorPoint = Vector2.new(0.5, 0.5)
@@ -205,24 +207,24 @@ scrollGui.Transparency = 1
 
 
 --BOTAO WALKSPEED
-local btnWalkSpeed = createButton("WalkSpeed",size,"Speed",backgroundColor,textSize,textColor,scrollGui,walkspeed)
+local btnWalkSpeed = createButton("WalkSpeed","Speed",scrollGui,walkspeed)
 
 
 --BOTAO GET CORD
-local btnGetCord = createButton("GetCord",size,"GetCord",backgroundColor,textSize,textColor,scrollGui,getCord)
+local btnGetCord = createButton("GetCord","GetCord",scrollGui,getCord)
 
 --BOTAO SNOW FARM
-local btnSnowFarm = createButton("snowFarm", size,"snowFarm",backgroundColor,textSize,textColor,scrollGui,function()
+local btnSnowFarm = createButton("snowFarm","snowFarm",scrollGui,function()
 	snowFarm()
 end)
 
 --BTN FRESHFISH
-local btnFreshFish = createButton("FishFarm", size,"FishFarm",backgroundColor,textSize,textColor,scrollGui,function()
+local btnFreshFish = createButton("FishFarm","FishFarm",scrollGui,function()
     fishFarm()
 end)
 
 --BTN Stop Farm
-local btnStopTheFarm = createButton("StopFarm", size,"StopFarm",backgroundColor,textSize,textColor,scrollGui,stopFarm)
+local btnStopTheFarm = createButton("StopFarm","StopFarm",scrollGui,stopFarm)
 
 --Label getcord
 getCoordinatedLabel.TextColor3 = textColor
@@ -233,7 +235,7 @@ getCoordinatedLabel.Size = UDim2.new(1,0,0.1,0)
 
 
 --TELEPORT
-local btnTeleport = createButton("Teleport",size,"Teleport",backgroundColor,textSize,textColor,scrollGui,teleport)
+local btnTeleport = createButton("Teleport","Teleport",scrollGui,teleport)
 
 
 
